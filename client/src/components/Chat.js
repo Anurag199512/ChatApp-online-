@@ -8,7 +8,7 @@ let socket;
 export function Chat({location}){
     const [userName, setUserName] = useState('');
     const [room, setRoom] = useState('');
-    const endPoint='https://anurag-chatapp.herokuapp.com/';
+    const endPoint='https://anurag-chatapp.herokuapp.com';
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
 
