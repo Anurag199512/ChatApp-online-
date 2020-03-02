@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react';
 import io from 'socket.io-client';
+
 import '../css/style.css'
 import Messages from './Messages';
-
+//const socket = io('/client-web-app', {transports: ['websocket']});
 let socket;
 
 export function Chat({location}){
@@ -19,7 +20,7 @@ export function Chat({location}){
         setUserName(userName);
         setRoom(room);
 
-        socket=io(endPoint);
+        socket=io(endPoint, {transports: ['websocket']});
           
         socket.emit("join",{name:userName,room},(error)=>{
             if(error)
