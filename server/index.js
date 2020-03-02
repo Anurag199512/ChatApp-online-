@@ -59,7 +59,7 @@ io.sockets.on("connection",function(socket){
         const user = utils.removeUser(socket.id);
 
         if(user) {
-          socket.broadcast.to(user.room).emit('greetMessage', { user: 'Admin', text: `${user.name} has left.` });
+            io.to(user.room).emit('greetMessage', { user: 'Admin', text: `${user.name} has left.` });
         }
     });
 
