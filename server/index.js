@@ -6,6 +6,9 @@ const port=process.env.PORT|| 5000;
 const utils=require('./utils');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
+const  cors= require('cors');
+
+app.use(cors());
 
 if (cluster.isMaster) {
 for (let i = 0; i < numCPUs; i++) {
