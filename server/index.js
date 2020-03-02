@@ -52,14 +52,19 @@ io.sockets.on("connection",function(socket){
     });
 
 })
+
 app.use(cors());
-if (cluster.isMaster) {
-    for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-      }
-    } else {
-        server.listen(port,()=>{
-            console.log(`Worker ${process.pid} started`);
-        });
-      }
+server.listen(port,()=>{
+    console.log(`Server listening on: ${port}`);
+});
+
+// if (cluster.isMaster) {
+//     for (let i = 0; i < numCPUs; i++) {
+//         cluster.fork();
+//       }
+//     } else {
+//         server.listen(port,()=>{
+//             console.log(`Worker ${process.pid} started`);
+//         });
+//       }
     
