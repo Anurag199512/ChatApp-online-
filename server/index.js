@@ -1,25 +1,13 @@
 const express=require('express');
 const app=express();
 const server = require('http').createServer(app);
-//const io = require('socket.io')(server);
-const io = socketIO(server, {transports: ['websocket']});
+const io = require('socket.io')(server);
+//const io = socketIO(server, {transports: ['websocket']});
 const port=process.env.PORT|| 5000;
 const utils=require('./utils');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const  cors= require('cors');
-
-app.use(cors());
-
-if (cluster.isMaster) {
-for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-} else {
-    server.listen(port,()=>{
-        console.log(`Worker ${process.pid} started`);
-    });
-  }
 
 
 app.get('/', function(req, res){
@@ -64,3 +52,14 @@ io.sockets.on("connection",function(socket){
     });
 
 })
+app.use(cors());
+if (cluster.isMaster) {
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+      }
+    } else {
+        server.listen(port,()=>{
+            console.log(`Worker ${process.pid} started`);
+        });
+      }
+    
